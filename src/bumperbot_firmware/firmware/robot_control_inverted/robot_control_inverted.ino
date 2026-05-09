@@ -12,7 +12,7 @@
 #define right_encoder_phaseA 2  // Interrupt 
 #define right_encoder_phaseB 31  
 #define left_encoder_phaseA 3   // Interrupt
-#define left_encoder_phaseB 43
+#define left_encoder_phaseB 41
 
 // Encoders
 unsigned int right_encoder_counter = 0;
