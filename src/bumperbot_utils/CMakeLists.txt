@@ -19,15 +19,20 @@ find_package(visualization_msgs REQUIRED)
 add_executable(safety_stop src/safety_stop.cpp)
 ament_target_dependencies(safety_stop rclcpp std_msgs sensor_msgs geometry_msgs twist_mux_msgs rclcpp_action visualization_msgs)
 
+add_executable(battery_level_pub src/battery_level_pub.cpp)
+ament_target_dependencies(battery_level_pub rclcpp std_msgs sensor_msgs geometry_msgs twist_mux_msgs rclcpp_action visualization_msgs)
+
 ament_python_install_package(${PROJECT_NAME})
 
 install(TARGETS
   safety_stop
+  battery_level_pub
   DESTINATION lib/${PROJECT_NAME}
 )
 
 install(PROGRAMS
   ${PROJECT_NAME}/safety_stop.py
+  ${PROJECT_NAME}/battery_level_pub.py
   DESTINATION lib/${PROJECT_NAME}
 )
 
