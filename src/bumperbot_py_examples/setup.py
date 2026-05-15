@@ -32,7 +32,6 @@ setup(
             'simple_lifecycle_node = bumperbot_py_examples.simple_lifecycle_node:main',
             'simple_qos_publisher = bumperbot_py_examples.simple_qos_publisher:main',
             'simple_qos_subscriber = bumperbot_py_examples.simple_qos_subscriber:main',
-            'battery_level_random = bumperbot_py_examples.battery_level_random:main'
         ],
     },
 )

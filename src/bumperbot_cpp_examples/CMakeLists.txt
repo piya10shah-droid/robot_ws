@@ -50,8 +50,6 @@ ament_target_dependencies(simple_qos_publisher rclcpp std_msgs)
 add_executable(simple_qos_subscriber src/simple_qos_subscriber.cpp)
 ament_target_dependencies(simple_qos_subscriber rclcpp std_msgs)
 
-add_executable(battery_level_random src/battery_level_random.cpp)
-ament_target_dependencies(battery_level_random rclcpp std_msgs)
 
 add_library(simple_action_server SHARED src/simple_action_server.cpp)
 target_include_directories(simple_action_server PRIVATE
@@ -101,7 +99,6 @@ install(TARGETS
   simple_lifecycle_node
   simple_qos_publisher
   simple_qos_subscriber
-  battery_level_random
   DESTINATION lib/${PROJECT_NAME}
 )
 
