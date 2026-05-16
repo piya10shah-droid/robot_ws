@@ -1,7 +1,7 @@
 #include <PID_v1.h>
 
 // L298N H-Bridge Connection PINs
-#define L298N_enA 4  // PWM
+#define L298N_enA 6  // PWM
 #define L298N_enB 5  // PWM
 #define L298N_in4 37  // Dir Motor B
 #define L298N_in3 39  // Dir Motor B
@@ -66,6 +66,7 @@ void setup() {
   rightMotor.SetMode(AUTOMATIC);
   leftMotor.SetMode(AUTOMATIC);
   Serial.begin(115200);
+  Serial3.begin(9600);
 
   pinMode(right_encoder_phaseB, INPUT);
   pinMode(left_encoder_phaseB, INPUT);
@@ -76,13 +77,10 @@ void setup() {
 void loop() {
   if (Serial.available())
   {
-    char chr = Serial.read();
-    
+    char chr = Serial.read(); //rp10,lp10,
     // LED triggers the moment 'r' or 'l' is received
     if(chr == 'r' || chr == 'l')
     {
-      digitalWrite(LED_BUILTIN, HIGH);
-      
       if(chr == 'r') {
         is_right_wheel_cmd = true;
         is_left_wheel_cmd = false;
@@ -96,7 +94,7 @@ void loop() {
     }
     else if(chr == 'p')
     {
-      digitalWrite(LED_BUILTIN, HIGH);
+      //digitalWrite(LED_BUILTIN, LOW);
       if(is_right_wheel_cmd && !is_right_wheel_forward)
       {
         digitalWrite(L298N_in1, !digitalRead(L298N_in1));
@@ -112,7 +110,7 @@ void loop() {
     }
     else if(chr == 'n')
     {
-      digitalWrite(LED_BUILTIN, HIGH);
+      //digitalWrite(LED_BUILTIN, HIGH);
       if(is_right_wheel_cmd && is_right_wheel_forward)
       {
         digitalWrite(L298N_in1, !digitalRead(L298N_in1));
@@ -128,7 +126,7 @@ void loop() {
     }
     else if(chr == ',')
     {
-      digitalWrite(LED_BUILTIN, HIGH);
+      
       if(is_right_wheel_cmd)
       {
         right_wheel_cmd_vel = atof(value);
@@ -149,11 +147,13 @@ void loop() {
         value_idx++;
       }
     }
+    Serial3.write(chr);
   }
 
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
+     digitalWrite(LED_BUILTIN, HIGH);
     right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/351.0)) * 0.10472;
     left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/385.0)) * 0.10472;
     
@@ -172,6 +172,7 @@ void loop() {
 
     analogWrite(L298N_enA, (int)right_wheel_cmd);
     analogWrite(L298N_enB, (int)left_wheel_cmd);
+    digitalWrite(LED_BUILTIN, LOW);
   }
 }
 

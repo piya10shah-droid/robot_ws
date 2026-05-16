@@ -16,6 +16,7 @@ void loop() {
     {
       // turn off the led
       digitalWrite(LED_PIN, LOW); 
+      
     }
     else
     {
@@ -24,4 +25,9 @@ void loop() {
     }
   }
   delay(0.1);
+
+   digitalWrite(LED_PIN, HIGH); 
+  Serial.println("123");
+  delay(100);
+   digitalWrite(LED_PIN, LOW); 
 }
