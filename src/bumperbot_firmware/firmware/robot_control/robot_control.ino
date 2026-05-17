@@ -20,7 +20,7 @@ unsigned int left_encoder_counter = 0;
 String right_wheel_sign = "p"; 
 String left_wheel_sign = "p"; 
 unsigned long last_millis = 0;
-const unsigned long interval = 200;
+const unsigned long interval = 100;
 
 // Interpret Serial Messages
 bool is_right_wheel_cmd = false;
@@ -147,14 +147,7 @@ void loop() {
         value_idx++;
       }
     }
-    Serial3.write(chr);
-  }
-
-  unsigned long current_millis = millis();
-  if(current_millis - last_millis >= interval)
-  {
-     digitalWrite(LED_BUILTIN, HIGH);
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/351.0)) * 0.10472;
+        right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/351.0)) * 0.10472;
     left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/385.0)) * 0.10472;
     
     rightMotor.Compute();
@@ -166,14 +159,15 @@ void loop() {
     String encoder_read = "r" + right_wheel_sign + String(right_wheel_meas_vel) + ",l" + left_wheel_sign + String(left_wheel_meas_vel) + ",";
     Serial.println(encoder_read);
     
-    last_millis = current_millis;
     right_encoder_counter = 0;
     left_encoder_counter = 0;
 
     analogWrite(L298N_enA, (int)right_wheel_cmd);
     analogWrite(L298N_enB, (int)left_wheel_cmd);
-    digitalWrite(LED_BUILTIN, LOW);
+    Serial3.write(chr);
   }
+
+
 }
 
 void rightEncoderCallback()
