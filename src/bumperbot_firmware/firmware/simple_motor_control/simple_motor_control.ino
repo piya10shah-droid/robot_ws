@@ -13,7 +13,7 @@ void setup() {
   digitalWrite(L298N_in1, HIGH);
   digitalWrite(L298N_in2, LOW);
 
-  Serial.begin(115200);
+  Serial.begin(9600);
   Serial.setTimeout(10);
 }
 

@@ -69,7 +69,7 @@ void setup() {
 
   rightMotor.SetMode(AUTOMATIC);
   leftMotor.SetMode(AUTOMATIC);
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   // Init encoders
   pinMode(right_encoder_phaseB, INPUT);

@@ -18,7 +18,7 @@ public:
     port_ = get_parameter("port").as_string();
 
     arduino_.Open(port_);
-    arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
+    arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
 
     pub_ = create_publisher<std_msgs::msg::String>("serial_receiver", 10);
     timer_ = create_wall_timer(0.01s, std::bind(&SimpleSerialReceiver::timerCallback, this));

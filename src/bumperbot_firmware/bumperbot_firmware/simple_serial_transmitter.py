@@ -10,7 +10,7 @@ class SimpleSerialTransmitter(Node):
         super().__init__("simple_serial_transmitter")
 
         self.declare_parameter("port", "/dev/ttyUSB0")
-        self.declare_parameter("baudrate", 115200)
+        self.declare_parameter("baudrate", 9600)
 
         self.port_ = self.get_parameter("port").value
         self.baudrate_ = self.get_parameter("baudrate").value

@@ -20,7 +20,7 @@ void setup() {
   digitalWrite(L298N_in1, HIGH);
   digitalWrite(L298N_in2, LOW);
 
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   pinMode(right_encoder_phaseB, INPUT);
   attachInterrupt(digitalPinToInterrupt(right_encoder_phaseA), rightEncoderCallback, RISING);
