@@ -20,7 +20,7 @@ unsigned int left_encoder_counter = 0;
 String right_wheel_sign = "p"; 
 String left_wheel_sign = "p"; 
 unsigned long last_millis = 0;
-const unsigned long interval = 100;
+const unsigned long interval = 200;
 
 // Interpret Serial Messages
 bool is_right_wheel_cmd = false;
