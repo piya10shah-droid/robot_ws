@@ -39,6 +39,9 @@ double left_wheel_cmd = 0.0;
 
 unsigned long last_millis = 0;
 const unsigned long interval = 100;
+unsigned long first_time = 0;
+unsigned long second_time = 0;
+
 
 String message_received = "";
 String rpString;
@@ -67,6 +70,7 @@ void setup() {
   rightMotor.SetMode(AUTOMATIC);
   leftMotor.SetMode(AUTOMATIC);
   Serial.begin(9600);
+  Serial3.begin(9600);
 // Set the PID evaluation delay to 50 milliseconds
 //rightMotor.SetSampleTime(50); 
 //leftMotor.SetSampleTime(50); 
@@ -77,30 +81,29 @@ void setup() {
 }
 
 void loop() {
- if (Serial.available()){ //rp10.00,lp10.00,
+ if (Serial.available()){
+  unsigned long first_time = millis();//rp10.00,lp10.00,
   message_received = Serial.readStringUntil('\n'); //rp10.00,lp10.00,\r
   message_received.trim();
   parseMessage(message_received);
   setMotorSpeedRight();
-  setMotorSpeedLeft();
-   
+  setMotorSpeedLeft(); 
  }
  unsigned long current_millis = millis();
  if(current_millis - last_millis >= interval)
  {
-     executeMotor();
-   last_millis = current_millis;
+  executeMotor();
+  last_millis = current_millis;
+  second_time = millis();
+  Serial3.println(second_time - first_time);
  }
-
-// right_wheel_speed_desired=0.0;
-// left_wheel_speed_desired=0.0;
 }
 
 
 void parseMessage(String packet){ 
   int firstComma = packet.indexOf(',');
   int secondComma = packet.indexOf(',', firstComma + 1);
-  Serial.println(packet);
+  Serial3.println(packet);
   if (firstComma == -1 || secondComma == -1){
     Serial.println("packet has either only 1/no comma");
     return;
@@ -159,8 +162,8 @@ void executeMotor(){
 
     analogWrite(L298N_enA, (int)right_wheel_cmd);
     analogWrite(L298N_enB, (int)left_wheel_cmd);
-    Serial.println(right_wheel_cmd);
-    Serial.println(left_wheel_cmd);
+//    Serial.println(right_wheel_cmd);
+//    Serial.println(left_wheel_cmd);
 }
 
 
