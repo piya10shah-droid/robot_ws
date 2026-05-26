@@ -110,7 +110,7 @@ CallbackReturn BumperbotInterface::on_activate(
 {
   RCLCPP_INFO(
     rclcpp::get_logger("BumperbotInterface"),
-    "Starting robot hardware ...");
+    "Starting robot hardware interfacing over UART ...");
 
   velocity_commands_ = {0.0, 0.0};
   position_states_ = {0.0, 0.0};
@@ -120,12 +120,18 @@ CallbackReturn BumperbotInterface::on_activate(
   {
     arduino_.Open(port_);
     arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
+    
+    // Explicit hardware configuration for raw UART header pins
+    arduino_.SetCharacterSize(LibSerial::CharacterSize::CHAR_SIZE_8);
+    arduino_.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
+    arduino_.SetParity(LibSerial::Parity::PARITY_NONE);
+    arduino_.SetStopBits(LibSerial::StopBits::STOP_BITS_1);
   }
   catch (...)
   {
     RCLCPP_FATAL_STREAM(
       rclcpp::get_logger("BumperbotInterface"),
-      "Something went wrong while interacting with port "
+      "Something went wrong while interacting with UART port "
         << port_);
 
     return CallbackReturn::FAILURE;
@@ -146,7 +152,7 @@ CallbackReturn BumperbotInterface::on_activate(
 
   RCLCPP_INFO(
     rclcpp::get_logger("BumperbotInterface"),
-    "Hardware started, ready to take commands");
+    "Hardware UART interface started, ready to take commands");
 
   return CallbackReturn::SUCCESS;
 }
@@ -238,6 +244,7 @@ BumperbotInterface::read(
       }
     }
 
+    // Fixed typo: Added trailing underscore
     last_run_ = rclcpp::Clock().now();
   }
 
