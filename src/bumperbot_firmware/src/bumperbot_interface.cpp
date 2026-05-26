@@ -191,14 +191,27 @@ BumperbotInterface::read(
   const rclcpp::Time &,
   const rclcpp::Duration &)
 {
+  RCLCPP_INFO_STREAM(
+      rclcpp::get_logger("BumperbotInterface"), 
+      "entered read function"
+    );
+
   if (arduino_.IsDataAvailable())
   {
+    RCLCPP_INFO_STREAM(
+      rclcpp::get_logger("BumperbotInterface"), 
+      "received data via uart"
+    );
     auto dt =
       (rclcpp::Clock().now() - last_run_).seconds();
 
     std::string message;
 
     arduino_.ReadLine(message);
+    RCLCPP_INFO_STREAM(
+      rclcpp::get_logger("BumperbotInterface"), 
+      "received data is" << message
+    );
 
     // Publish incoming serial data
     if (jetson_read_pub_)
@@ -257,7 +270,7 @@ BumperbotInterface::write(
   const rclcpp::Duration &)
 {
   std::stringstream message_stream;
-
+  
   char right_wheel_sign =
     velocity_commands_.at(0) >= 0 ? 'p' : 'n';
 
@@ -294,6 +307,11 @@ BumperbotInterface::write(
   {
     // Modified: Sends "1" over UART instead of the velocity command string
     arduino_.Write("1");
+     RCLCPP_INFO_STREAM(
+      rclcpp::get_logger("BumperbotInterface"), 
+      "wrote data to uart"
+    );
+    
 
     // Publish outgoing serial data (keeps publishing the actual calculated message for tracking)
     if (jetson_write_pub_)
