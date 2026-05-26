@@ -82,10 +82,11 @@ void setup() {
 }
 
 void loop() {
+  //Serial.println("entered loop");
  if (Serial2.available()){
   unsigned long first_time = millis();//rp10.00,lp10.00,
   message_received = Serial2.readStringUntil('\n'); //rp10.00,lp10.00,\r
-  Serial.println(message_received);
+  
   message_received.trim();
   parseMessage(message_received);
   setMotorSpeedRight();
@@ -99,6 +100,9 @@ void loop() {
   second_time = millis();
   //Serial23.println(second_time - first_time);
  }
+ if (Serial.available()){
+   Serial.println(message_received); 
+  }
 }
 
 

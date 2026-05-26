@@ -11,17 +11,22 @@ class SimpleSerialTransmitter(Node):
 
         self.declare_parameter("port", "/dev/ttyUSB0")
         self.declare_parameter("baudrate", 115200)
+        self.declare_parameter("frequency", 5.0) #hz
 
         self.port_ = self.get_parameter("port").value
         self.baudrate_ = self.get_parameter("baudrate").value
+        self.frequency_ = self.get_parameter("frequency").get_parameter_value().double_value
 
-        self.sub_ = self.create_subscription(String, "serial_transmitter", self.msgCallback, 10)
-        self.sub_
         self.arduino_ = serial.Serial(port=self.port_, baudrate=self.baudrate_, timeout=0.1)
 
-    def msgCallback(self, msg):
-        self.get_logger().info("New message received, publishing on serial: %s" % self.arduino_.name)
-        self.arduino_.write(msg.data.encode("utf-8"))
+        self.interval_ = 1/self.frequency_
+        self.timer_ = self.create_timer(self.interval_, self.msgCallback)
+
+    def msgCallback(self):
+        self.get_logger().info(f"Timer triggered. Current internal count: {counter_}")
+        serial_packet = f"{counter_}\n"
+        self.arduino_.write(serial_packet.encode("utf-8"))
+        counter_ += 1
 
 
 def main():

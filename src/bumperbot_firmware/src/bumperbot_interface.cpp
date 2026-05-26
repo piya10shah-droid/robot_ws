@@ -292,9 +292,10 @@ BumperbotInterface::write(
 
   try
   {
-    arduino_.Write(message_stream.str());
+    // Modified: Sends "1" over UART instead of the velocity command string
+    arduino_.Write("1");
 
-    // Publish outgoing serial data
+    // Publish outgoing serial data (keeps publishing the actual calculated message for tracking)
     if (jetson_write_pub_)
     {
       std_msgs::msg::String msg;
@@ -306,9 +307,7 @@ BumperbotInterface::write(
   {
     RCLCPP_ERROR_STREAM(
       rclcpp::get_logger("BumperbotInterface"),
-      "Something went wrong while sending the message "
-        << message_stream.str()
-        << " to the port "
+      "Something went wrong while sending the message to the port "
         << port_);
 
     return hardware_interface::return_type::ERROR;
