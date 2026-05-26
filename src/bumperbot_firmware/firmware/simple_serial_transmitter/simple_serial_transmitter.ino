@@ -1,7 +1,7 @@
 int x = 0;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.setTimeout(1);
 }
 

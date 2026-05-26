@@ -4,7 +4,7 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW); 
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.setTimeout(1);
 }
 
