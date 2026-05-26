@@ -3,8 +3,8 @@
 
     <ros2_control name="RobotSystem" type="system">
 
+        <!-- ros2_control Gazebo -->
         <xacro:if value="$(arg is_sim)">
-            <!-- ros2_control Gazebo -->
             <!-- ROS 2 Humble -->
             <xacro:if value="$(arg is_ignition)">
                 <hardware>
@@ -20,16 +20,16 @@
             </xacro:unless>
         </xacro:if>
 
+        <!-- ros2_control Real Robot -->
         <xacro:unless value="$(arg is_sim)">
             <hardware>
                 <plugin>bumperbot_firmware/BumperbotInterface</plugin>
                 <param name="port">/dev/arduino</param>
             </hardware>
         </xacro:unless>
-
         
         <!-- ros2_control Common Interfaces -->
-        <joint name="wheel_right_joint">
+        <joint name="wheel_left_joint">
             <command_interface name="velocity">
               <param name="min">-1</param>
               <param name="max">1</param>
@@ -38,7 +38,7 @@
             <state_interface name="velocity" />
         </joint>
 
-        <joint name="wheel_left_joint">
+        <joint name="wheel_right_joint">
             <command_interface name="velocity">
               <param name="min">-1</param>
               <param name="max">1</param>
