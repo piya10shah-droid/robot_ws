@@ -34,11 +34,11 @@ class OdometryMotionModel(Node):
         self.last_odom_y = 0.0
         self.last_odom_theta = 0.0
         self.is_first_odom = True
-        #change the alpha values to match robot if it has error in motion
-        self.declare_parameter('alpha1', 0.1) # for angular error
-        self.declare_parameter('alpha2', 0.1) # for angular error
-        self.declare_parameter('alpha3', 0.1) # for linear error
-        self.declare_parameter('alpha4', 0.1) # for linerar error
+
+        self.declare_parameter('alpha1', 0.1)
+        self.declare_parameter('alpha2', 0.1)
+        self.declare_parameter('alpha3', 0.1)
+        self.declare_parameter('alpha4', 0.1)
         self.declare_parameter('nr_samples', 300)
 
         self.alpha1 = self.get_parameter('alpha1').get_parameter_value().double_value
