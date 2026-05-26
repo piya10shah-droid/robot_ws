@@ -70,7 +70,6 @@ void setup() {
   rightMotor.SetMode(AUTOMATIC);
   leftMotor.SetMode(AUTOMATIC);
   Serial.begin(115200);
-  Serial2.begin(115200);
   //Serial23.begin(9600);
 // Set the PID evaluation delay to 50 milliseconds
 //rightMotor.SetSampleTime(50); 
@@ -83,10 +82,9 @@ void setup() {
 
 void loop() {
   //Serial.println("entered loop");
- if (Serial2.available()){
+ if (Serial.available()){
   unsigned long first_time = millis();//rp10.00,lp10.00,
-  message_received = Serial2.readStringUntil('\n'); //rp10.00,lp10.00,\r
-  
+  message_received = Serial.readStringUntil('\n'); //rp10.00,lp10.00,\r
   message_received.trim();
   parseMessage(message_received);
   setMotorSpeedRight();
@@ -100,9 +98,6 @@ void loop() {
   second_time = millis();
   //Serial23.println(second_time - first_time);
  }
- if (Serial.available()){
-   Serial.println(message_received); 
-  }
 }
 
 
@@ -111,7 +106,7 @@ void parseMessage(String packet){
   int secondComma = packet.indexOf(',', firstComma + 1);
   //Serial23.println(packet);
   if (firstComma == -1 || secondComma == -1){
-    Serial2.println("packet has either only 1/no comma");
+    //Serial3.println("packet has either only 1/no comma");
     return;
   }
   rpString = packet.substring(0, firstComma); //rp10.00
@@ -161,7 +156,7 @@ void executeMotor(){
     if(left_wheel_speed_desired == 0.0) left_wheel_cmd = 0.0;
 
     String encoder_read = "r" + right_wheel_sign + String(right_wheel_meas_vel) + ",l" + left_wheel_sign + String(left_wheel_meas_vel) + ",";
-    Serial2.println(encoder_read);
+    Serial.println(encoder_read);
     
     right_encoder_counter = 0;
     left_encoder_counter = 0;
