@@ -18,7 +18,7 @@ public:
         "serial_transmitter", 10, std::bind(&SimpleSerialTransmitter::msgCallback, this, _1));
     
     arduino_.Open(port_);
-    arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_9600);
+    arduino_.SetBaudRate(LibSerial::BaudRate::BAUD_115200);
   }
 
   ~SimpleSerialTransmitter()
