@@ -91,7 +91,13 @@ def generate_launch_description():
         parameters=[{"use_sim_time": True}],
         condition=IfCondition(use_slam)
     )
-    
+
+    safety_stop = Node(
+        package="bumperbot_utils",
+        executable="safety_stop",
+        output="screen",
+    )
+
     return LaunchDescription([
         use_slam_arg,
         gazebo,
@@ -100,5 +106,6 @@ def generate_launch_description():
         localization,
         slam,
         rviz_localization,
-        rviz_slam
+        rviz_slam,
+        safety_stop
     ])

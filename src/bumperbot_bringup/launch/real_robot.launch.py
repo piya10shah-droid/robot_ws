@@ -80,6 +80,12 @@ def generate_launch_description():
         ),
         condition=IfCondition(use_slam)
     )
+
+    safety_stop = Node(
+        package="bumperbot_utils",
+        executable="safety_stop",
+        output="screen",
+    )
     
     return LaunchDescription([
         use_slam_arg,
@@ -89,5 +95,6 @@ def generate_launch_description():
         joystick,
         imu_driver_node,
         localization,
-        slam
+        slam,
+        safety_stop
     ])
