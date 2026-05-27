@@ -92,11 +92,11 @@ def generate_launch_description():
         condition=IfCondition(use_slam)
     )
 
-    safety_stop = Node(
-        package="bumperbot_utils",
-        executable="safety_stop",
-        output="screen",
-    )
+    # safety_stop = Node(
+    #     package="bumperbot_utils",
+    #     executable="safety_stop",
+    #     output="screen",
+    # )
 
     return LaunchDescription([
         use_slam_arg,
@@ -107,5 +107,5 @@ def generate_launch_description():
         slam,
         rviz_localization,
         rviz_slam,
-        safety_stop
+        # safety_stop
     ])
