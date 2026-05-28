@@ -89,6 +89,12 @@ def generate_launch_description():
             "navigation.launch.py"
         ),
     )
+
+    safety_stop = Node(
+        package="bumperbot_utils",
+        executable="safety_stop",
+        output="screen",
+    )
     
     return LaunchDescription([
         use_slam_arg,
@@ -100,4 +106,5 @@ def generate_launch_description():
         localization,
         slam,
         navigation,
+        safety_stop
     ])
