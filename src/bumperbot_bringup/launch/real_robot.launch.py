@@ -9,17 +9,12 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
     use_slam = LaunchConfiguration("use_slam")
-    use_navigation = LaunchConfiguration("use_navigation")
 
     use_slam_arg = DeclareLaunchArgument(
         "use_slam",
         default_value="false"
     )
 
-    use_navigation_arg = DeclareLaunchArgument(
-        "use_navigation",
-        default_value="false"
-    )
 
     hardware_interface = IncludeLaunchDescription(
         os.path.join(
@@ -93,12 +88,10 @@ def generate_launch_description():
             "launch",
             "navigation.launch.py"
         ),
-        condition=IfCondition(use_navigation)
     )
     
     return LaunchDescription([
         use_slam_arg,
-        use_navigation_arg,
         hardware_interface,
         laser_driver,
         controller,
