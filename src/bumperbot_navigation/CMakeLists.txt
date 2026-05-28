@@ -8,9 +8,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 
 install(
-  DIRECTORY config launch behavior_tree
+  DIRECTORY behavior_tree config launch
   DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package()
-

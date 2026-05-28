@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<root BTCPP_format="3">
-  <BehaviorTree ID="Untitled">
-    <Sequence>
-      <ComputePathToPose goal="{goal}" planner_id="GridBased" path="{path}"/>
-      <FollowPath controller_id="FollowPath" path="{path}"/>
-    </Sequence>
-  </BehaviorTree>
+<root main_tree_to_execute="MainTree">
+    <BehaviorTree ID="MainTree">
+        <Sequence name="PlanAndExecute">
+            <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased"/>
+            <FollowPath path="{path}" controller_id="FollowPath"/>
+        </Sequence>
+    </BehaviorTree>
 </root>
