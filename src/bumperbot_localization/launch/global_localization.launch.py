@@ -20,7 +20,7 @@ def generate_launch_description():
 
     use_sim_time_arg = DeclareLaunchArgument(
         "use_sim_time",
-        default_value="true"
+        default_value="false"
     )
 
     amcl_config_arg = DeclareLaunchArgument(

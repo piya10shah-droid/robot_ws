@@ -7,6 +7,7 @@ from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 
 
+
 def generate_launch_description():
     use_slam = LaunchConfiguration("use_slam")
 
@@ -31,7 +32,8 @@ def generate_launch_description():
         ),
         launch_arguments={
             "use_simple_controller": "False",
-            "use_python": "False"
+            "use_python": "False",
+            "use_sim_time": "True"
         }.items(),
     )
     
@@ -52,6 +54,9 @@ def generate_launch_description():
             "launch",
             "global_localization.launch.py"
         ),
+        launch_arguments={
+            "use_sim_time": "true"
+        }.items(),
         condition=UnlessCondition(use_slam)
     )
 
@@ -61,6 +66,9 @@ def generate_launch_description():
             "launch",
             "slam.launch.py"
         ),
+        launch_arguments={
+            "use_sim_time": "true"
+        }.items(),
         condition=IfCondition(use_slam)
     )
 
@@ -70,6 +78,9 @@ def generate_launch_description():
             "launch",
             "navigation.launch.py"
         ),
+        launch_arguments={
+            "use_sim_time": "true"
+        }.items(),
     )
 
     rviz = Node(

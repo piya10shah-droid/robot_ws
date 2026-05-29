@@ -44,7 +44,7 @@ def generate_launch_description():
     
     use_sim_time_arg = DeclareLaunchArgument(
         "use_sim_time",
-        default_value="True",
+        default_value="False",
     )
     use_simple_controller_arg = DeclareLaunchArgument(
         "use_simple_controller",
