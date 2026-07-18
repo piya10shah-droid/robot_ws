@@ -17,16 +17,15 @@
   
   <link name="base_link">
     <inertial>
-      <origin xyz="0.000392694 0.003603923 0.028354103" rpy="0 0 0"/>
-      <mass value="1.1796479"/>
-      <inertia ixx="0.010666756"    ixy="0.000115581"  ixz="0.001086391"
-               iyy="0.011710101"    iyz="-0.000017452"
-               izz="0.00663569" />
+      <origin xyz="-0.008675826 0.003144972 0.032628778" rpy="0 0 0"/>
+      <mass value="2.210665107"/>
+      <inertia ixx="0.011527704"    ixy="-5.335634932e-7"  ixz="-0.000228605"
+               iyy="0.005806872"    iyz="-0.000372021"
+               izz="0.014234404" />
     </inertial>
     <visual>
       <origin xyz="0 0 0.0015" rpy="0 0 0" />
       <!-- <material name="black"/> -->
-      
       <geometry>
         <mesh filename="package://bumperbot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -177,7 +176,7 @@
         <geometry>
           <mesh filename="package://bumperbot_description/meshes/new_laser_link.stl"/>    
         </geometry>
-        <origin xyz="0 0 0" rpy="0 0 3.14"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="dark_grey"/>
       </visual>
 
@@ -190,7 +189,7 @@
     </link>
 
   <joint name="laser_joint" type="fixed">
-        <origin xyz="0 0 0.131" rpy="0 0 0" /> <!-- z= 0.042(from physical unit) + 0.088(from fusion final assembly without wheels) + 0.001(accounting for plate thickness)-->
+        <origin xyz="0 0 0.131" rpy="0 0 3.14" /> <!-- z= 0.042(from physical unit) + 0.088(from fusion final assembly without wheels) + 0.001(accounting for plate thickness)-->
         <parent link="base_link" />
         <child link="laser_link" />
   </joint>
