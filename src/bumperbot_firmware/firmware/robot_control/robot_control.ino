@@ -51,6 +51,10 @@ double Kd_r = 0.1;
 double Kp_l = 12.8;
 double Ki_l = 8.3;
 double Kd_l = 0.1;
+
+double right_multiplier = 1.1;
+double left_multiplier = 1.0;
+
 // Controller
 PID rightMotor(&right_wheel_meas_vel, &right_wheel_cmd, &right_wheel_cmd_vel, Kp_r, Ki_r, Kd_r, DIRECT);
 PID leftMotor(&left_wheel_meas_vel, &left_wheel_cmd, &left_wheel_cmd_vel, Kp_l, Ki_l, Kd_l, DIRECT);
@@ -195,7 +199,17 @@ void loop() {
     last_millis = current_millis;
     right_encoder_counter = 0;
     left_encoder_counter = 0;
+    right_wheel_cmd = right_wheel_cmd * right_multiplier;
+    left_wheel_cmd = left_wheel_cmd * left_multiplier;
+    
+    if (right_wheel_cmd > 255){
+      right_wheel_cmd = 255;
+    }
 
+    if (left_wheel_cmd > 255){
+      left_wheel_cmd = 255;
+    }
+    
     analogWrite(L298N_enA, right_wheel_cmd);
     analogWrite(L298N_enB, left_wheel_cmd);
   }

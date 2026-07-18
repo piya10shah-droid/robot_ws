@@ -1,10 +1,10 @@
-// L298N H-Bridge Connection PINs
-#define L298N_enA 4  // PWM
-#define L298N_in2 50  // Dir Motor A
-#define L298N_in1 53  // Dir Motor A
+#define L298N_enA 9  // PWM
+#define L298N_in2 6  // Dir Motor A
+#define L298N_in1 5  // Dir Motor A
 
-#define right_encoder_phaseA 2  // Interrupt 
-#define right_encoder_phaseB 31  
+
+#define right_encoder_phaseA 2  // Interrupt Pin
+#define right_encoder_phaseB 3 
 
 unsigned int right_encoder_counter = 0;
 String right_encoder_sign = "p";
@@ -27,7 +27,7 @@ void setup() {
 }
 
 void loop() {
-  right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/385.0)) * 0.10472;
+  right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/134.4)) * 0.10472;
   String encoder_read = "r" + right_encoder_sign + String(right_wheel_meas_vel);
   Serial.println(encoder_read);
   right_encoder_counter = 0;
