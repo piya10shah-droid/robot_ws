@@ -5,7 +5,7 @@
 #define L298N_in4 37  // Dir Motor B right
 
 #define L298N_enA 5  // PWM left
-#define L298N_in1 53  // Dir Motor A left
+#define L298N_in1 51  // Dir Motor A left
 #define L298N_in2 50  // Dir Motor A left
 
 
@@ -178,8 +178,8 @@ void loop() {
   unsigned long current_millis = millis();
   if(current_millis - last_millis >= interval)
   {
-    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/385.0)) * 0.10472;
-    left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/385.0)) * 0.10472;
+    right_wheel_meas_vel = (10 * right_encoder_counter * (60.0/134.4)) * 0.10472; //old value: 385 instead of 134.4
+    left_wheel_meas_vel = (10 * left_encoder_counter * (60.0/134.4)) * 0.10472;
     
     rightMotor.Compute();
     leftMotor.Compute();
@@ -199,8 +199,8 @@ void loop() {
     last_millis = current_millis;
     right_encoder_counter = 0;
     left_encoder_counter = 0;
-    right_wheel_cmd = right_wheel_cmd * right_multiplier;
-    left_wheel_cmd = left_wheel_cmd * left_multiplier;
+    //right_wheel_cmd = right_wheel_cmd * right_multiplier;
+    //left_wheel_cmd = left_wheel_cmd * left_multiplier;
     
     if (right_wheel_cmd > 255){
       right_wheel_cmd = 255;
@@ -220,11 +220,11 @@ void rightEncoderCallback()
 {
   if(digitalRead(right_encoder_phaseB) == HIGH)
   {
-    right_wheel_sign = "p";
+    right_wheel_sign = "n";
   }
   else
   {
-    right_wheel_sign = "n";
+    right_wheel_sign = "p";
   }
   right_encoder_counter++;
 }
@@ -234,11 +234,11 @@ void leftEncoderCallback()
 {
   if(digitalRead(left_encoder_phaseB) == HIGH)
   {
-    left_wheel_sign = "n";
+    left_wheel_sign = "p";
   }
   else
   {
-    left_wheel_sign = "p";
+    left_wheel_sign = "n";
   }
   left_encoder_counter++;
 }
